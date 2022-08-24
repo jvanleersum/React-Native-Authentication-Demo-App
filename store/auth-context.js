@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext({
   token: null,
@@ -13,8 +14,19 @@ export const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const isLoggedIn = !!token;
 
+  useEffect(() => {
+    const fetchToken = async () => {
+      const token = await AsyncStorage.getItem('token')
+      if (token) {
+        setToken(token)
+      }
+    }
+    fetchToken();
+  }, [])
+
   const loginHandler = (token) => {
     setToken(token);
+    AsyncStorage.setItem('token', token)
   };
 
   const logoutHandler = () => {
