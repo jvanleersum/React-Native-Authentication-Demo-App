@@ -6,13 +6,14 @@ import { login } from '../utils/auth';
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
-  const authUserHandler = (userData) => {
+  const authUserHandler = async (userData) => {
     setIsAuthenticating(true);
-    login(userData);
+    await login(userData);
     setIsAuthenticating(false);
   }
 
   if (isAuthenticating) {
+    console.log(isAuthenticating)
     return <LoadingOverlay message="Loggin in user..."/>
   }
 
