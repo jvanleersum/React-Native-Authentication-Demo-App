@@ -14,16 +14,6 @@ export const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const isLoggedIn = !!token;
 
-  useEffect(() => {
-    const fetchToken = async () => {
-      const token = await AsyncStorage.getItem('token')
-      if (token) {
-        setToken(token)
-      }
-    }
-    fetchToken();
-  }, [])
-
   const loginHandler = (token) => {
     setToken(token);
     AsyncStorage.setItem('token', token)
