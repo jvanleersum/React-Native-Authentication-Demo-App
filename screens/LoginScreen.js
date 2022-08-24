@@ -10,12 +10,12 @@ function LoginScreen() {
   const authUserHandler = async (userData) => {
     setIsAuthenticating(true);
     try {
-      await login(userData);
-      setIsAuthenticating(false);
+      const token = await login(userData);
+      authCtx.login(token);
     } catch (error) {
       Alert.alert("Login failed", "Could not log you in. Please check your credentials")
-      setIsAuthenticating(false);
     }
+    setIsAuthenticating(false);
   }
 
   if (isAuthenticating) {
