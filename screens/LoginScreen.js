@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Alert } from 'react-native';
 import AuthContent from '../components/Auth/AuthContent';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 import { login } from '../utils/auth';
@@ -8,12 +9,16 @@ function LoginScreen() {
 
   const authUserHandler = async (userData) => {
     setIsAuthenticating(true);
-    await login(userData);
-    setIsAuthenticating(false);
+    try {
+      await login(userData);
+      setIsAuthenticating(false);
+    } catch (error) {
+      Alert.alert("Login failed", "Could not log you in. Please check your credentials")
+      setIsAuthenticating(false);
+    }
   }
 
   if (isAuthenticating) {
-    console.log(isAuthenticating)
     return <LoadingOverlay message="Loggin in user..."/>
   }
 
