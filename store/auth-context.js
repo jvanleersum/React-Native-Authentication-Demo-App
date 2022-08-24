@@ -21,6 +21,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const logoutHandler = () => {
     setToken(null);
+    AsyncStorage.removeItem('token')
   };
 
   return (
