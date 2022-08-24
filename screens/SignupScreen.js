@@ -17,8 +17,8 @@ function SignupScreen({navigation}) {
       authCtx.login(token);
     } catch (error) {
       Alert.alert("Authentication failed", "Could not create user. Please check your credentials")
+      setIsAuthenticating(false)
     }
-    setIsAuthenticating(false)
   }
 
   if (isAuthenticating) {
